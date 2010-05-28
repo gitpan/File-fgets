@@ -1,0 +1,3 @@
+v0.0.1 - Fri May 28 14:38:13 PDT 2010
+    First version thrown together after a Stack Overflow discussion
+    about doing fgets() in Perl.
