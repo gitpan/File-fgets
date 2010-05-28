@@ -3,7 +3,7 @@ package File::fgets;
 use strict;
 use warnings;
 
-use version; our $VERSION = qv("v0.0.2");
+use version; our $VERSION = qv("v0.0.3");
 
 use XSLoader;
 XSLoader::load __PACKAGE__, $VERSION;
@@ -49,11 +49,12 @@ sub fgets {
 
     croak "Invalid filehandle supplied to fgets()" unless defined $fh;
     croak "No limit supplied to fgets()" unless defined $limit;
-    croak "fgets() on closed filehandle" if do { no warnings 'closed'; tell($fh) == -1; };
+    croak "fgets() on closed filehandle" if do { tell($fh) == -1; };
     return if eof $fh;
 
-    my $fd = fileno($fh);
-    return $fd ? xs_fgets($fh, $limit) : perl_fgets($fh, $limit);
+    my $fd = eval { fileno($fh) };
+    my $has_fd = $fd && $fd != -1;
+    return $has_fd ? xs_fgets($fh, $limit) : perl_fgets($fh, $limit);
 }
 
 # For dealing with filehandles that aren't real file descriptors

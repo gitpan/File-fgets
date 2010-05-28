@@ -1,3 +1,9 @@
+v0.0.3  Fri May 28 15:26:48 PDT 2010
+    Bugs
+    * Make it work with scalar ref filehandles
+    * Make it work with tied filehandles that don't implement FILENO
+
+
 v0.0.2  Fri May 28 14:58:29 PDT 2010
     Bugs
     * Make sure the Perl version of fgets() returns an empty string,
