@@ -3,7 +3,7 @@ package File::fgets;
 use strict;
 use warnings;
 
-use version; our $VERSION = qv("v0.0.1");
+use version; our $VERSION = qv("v0.0.2");
 
 use XSLoader;
 XSLoader::load __PACKAGE__, $VERSION;
@@ -61,7 +61,7 @@ sub perl_fgets {
     my($fh, $limit) = @_;
 
     my $char;    # avoid reallocating it every iteration
-    my $str;
+    my $str = '';
     for(1..$limit) {
         $char = getc $fh;
         last unless defined $char;
@@ -123,7 +123,7 @@ modify it under the same terms as Perl itself.
 See F<http://www.perl.com/perl/misc/Artistic.html>
 
 Send bugs, feedback, ideas and suggestions via
-L<https://rt.cpan.org/Public/Dist/Display.html?Name=Test-Manifest> or
+L<https://rt.cpan.org/Public/Dist/Display.html?Name=File-fgets> or
 E<lt>bugs-File-fgets@rt.cpan.orgE<gt>
 
 The latest version of this software can be found at L<http://github.com/schwern/File-fgets>
