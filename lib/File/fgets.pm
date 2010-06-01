@@ -3,7 +3,7 @@ package File::fgets;
 use strict;
 use warnings;
 
-use version; our $VERSION = qv("v0.0.3");
+use version; our $VERSION = qv("v0.0.4");
 
 use XSLoader;
 XSLoader::load __PACKAGE__, $VERSION;
@@ -51,6 +51,10 @@ sub fgets {
     croak "No limit supplied to fgets()" unless defined $limit;
     croak "fgets() on closed filehandle" if do { tell($fh) == -1; };
     return if eof $fh;
+
+    # fgets() is often buggy, returning garbage or silently reading
+    # one character.  Let's just not get it involved.
+    return "" if $limit == 0;
 
     my $fd = eval { fileno($fh) };
     my $has_fd = $fd && $fd != -1;
